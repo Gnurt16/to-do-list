@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
+</head>
+<body>
+    <div id="app">
+        <div class="container">
+            <header>
+                <h1>To-Do List</h1>
+                <p>Quản lý công việc hiệu quả của bạn ngay tại đây!</p>
+            </header>
+            <main>
+                <div class="input-group">
+                    <input 
+                        v-model="newTask" 
+                        type="text" 
+                        placeholder="Nhập công việc mới" 
+                        @keyup.enter="addTask"
+                    >
+                    <button @click="addTask">Thêm</button>
+                </div>
+                <ul class="task-list">
+                    <li v-for="(task, index) in tasks" :key="index" :class="{ completed: task.completed }">
+                        <div class="task">
+                            <input 
+                                type="checkbox" 
+                                v-model="task.completed"
+                                @change="saveTasks"
+                            >
+                            <span @dblclick="editTask(index)">{{ task.name }}</span>
+                        </div>
+                        <button class="delete-btn" @click="deleteTask(index)">Xóa</button>
+                    </li>
+                </ul>
+            </main>
+            <footer>
+                <p>{{ remainingTasks }} công việc chưa hoàn thành</p>
+            </footer>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
